@@ -1,0 +1,92 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "sqlite"
+  url      = env("DATABASE_URL")
+}
+
+model Module {
+  id         String   @id @default(uuid())
+  name       String   @unique
+  created_at DateTime @default(now())
+  updated_at DateTime @updatedAt
+
+  @@map("modules")
+}
+
+model BiddingType {
+  id         String     @id @default(uuid())
+  name       String     @unique
+  created_at DateTime   @default(now())
+  updated_at DateTime   @updatedAt
+  Contract   Contract[]
+
+  @@map("bidding_types")
+}
+
+model Entity {
+  id         String   @id @default(uuid())
+  name       String   @unique
+  created_at DateTime @default(now())
+  updated_at DateTime @updatedAt
+
+  @@map("entities")
+}
+
+model Supplier {
+  id           String     @id @default(uuid())
+  name         String
+  cnpj         String     @unique
+  zip_code     String
+  city         String
+  address      String
+  neighborhood String
+  number       Int?
+  observation  String?
+  Contract     Contract[]
+
+  created_at DateTime @default(now())
+  updated_at DateTime @updatedAt
+
+  @@map("suppliers")
+}
+
+model Contract {
+  id              String      @id @default(uuid())
+  number          Int
+  process_number  Int
+  bidding_type    BiddingType @relation(fields: [bidding_type_id], references: [id])
+  supplier        Supplier    @relation(fields: [supplier_id], references: [id])
+  fixture         String
+  billing_day     Int
+  bidding_type_id String
+  supplier_id     String
+
+  created_at DateTime    @default(now())
+  updated_at DateTime    @updatedAt
+  amendments Amendment[]
+
+  @@unique([number, process_number, supplier_id])
+  @@map("contracts")
+}
+
+model Amendment {
+  id                String   @id @default(uuid())
+  contract          Contract @relation(fields: [contract_id], references: [id])
+  number            Int
+  value             Decimal
+  subscription_date DateTime
+  due_date          DateTime
+  signature_date    DateTime
+  contract_id       String
+
+  created_at DateTime @default(now())
+  updated_at DateTime @updatedAt
+
+  @@map("amendments")
+}
