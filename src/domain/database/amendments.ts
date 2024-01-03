@@ -1,12 +1,13 @@
 import { adapterAmendment } from "../adapters/amendment-adapter";
 import { db, dbType } from "./config";
 
-const dbAmendmentValidator = dbType.validator<dbType.AmendmentDefaultArgs>()({
-  include: { modules: true },
-});
+const dbAmendmentWithModulesValidator =
+  dbType.validator<dbType.AmendmentDefaultArgs>()({
+    include: { modules: true },
+  });
 
-export type dbAmendment = dbType.AmendmentGetPayload<
-  typeof dbAmendmentValidator
+export type dbAmendmentWithModules = dbType.AmendmentGetPayload<
+  typeof dbAmendmentWithModulesValidator
 >;
 
 async function getAmendmentTotalValue(amendmentId: string): Promise<number> {

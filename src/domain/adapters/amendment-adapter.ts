@@ -1,6 +1,5 @@
 import { Amendment } from "../entities/amendment";
-import { dbAmendment } from "../database/amendments";
-import { adapterAmendmentModules } from "./amendment-modules-adapter";
+import { Amendment as dbAmendment } from "@prisma/client";
 
 export const adapterAmendment = {
   dbToDomain,
@@ -14,5 +13,6 @@ function dbToDomain(dbAmendment: dbAmendment): Amendment {
     subscriptionDate: dbAmendment.subscription_date,
     value: Number(dbAmendment.value),
   };
+
   return Amendment.parse(amendment);
 }
