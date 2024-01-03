@@ -16,7 +16,7 @@ export function RemoveAmendmentButton(data: RemoveButtonProps) {
   async function handleRemoveClick() {
     try {
       await removeAmendmentAction({ id: data.id, contractId: data.contractId });
-      onSuccess("Módulo removido com sucesso");
+      onSuccess("Aditivo removido com sucesso");
     } catch (error: Error | any) {
       onError(error.message);
     }

@@ -10,7 +10,6 @@ import {
   PaginationPrevious,
 } from "@/src/components/ui/pagination";
 import { Button } from "./button";
-import { env } from "@/src/infra/env";
 
 interface TablePaginationProps {
   total: number;
@@ -31,7 +30,7 @@ export function TablePagination({ total, pages }: TablePaginationProps) {
         <PaginationItem>
           <Button disabled={!hasPrevPage} variant="link">
             <PaginationPrevious
-              href={`${env.BASE_URL}/${pathname}/?page=${
+              href={`${process.env.BASE_URL}/${pathname}/?page=${
                 Number(page) - 1
               }&limit=${limit}`}
             />
@@ -45,7 +44,7 @@ export function TablePagination({ total, pages }: TablePaginationProps) {
             className="disabled:hidden"
           >
             <PaginationLink
-              href={`${env.BASE_URL}/${pathname}/?page=${
+              href={`${process.env.BASE_URL}/${pathname}/?page=${
                 Number(page) - 1
               }&limit=${limit}`}
             >
@@ -65,7 +64,7 @@ export function TablePagination({ total, pages }: TablePaginationProps) {
             className="disabled:hidden"
           >
             <PaginationLink
-              href={`${env.BASE_URL}/${pathname}?page=${
+              href={`${process.env.BASE_URL}/${pathname}?page=${
                 Number(page) + 1
               }&limit=${limit}`}
             >
@@ -76,7 +75,7 @@ export function TablePagination({ total, pages }: TablePaginationProps) {
         <PaginationEllipsis />
         <PaginationItem>
           <PaginationLink
-            href={`${env.BASE_URL}/${pathname}?page=${pages}&limit=${limit}`}
+            href={`${process.env.BASE_URL}/${pathname}?page=${pages}&limit=${limit}`}
           >
             {pages}
           </PaginationLink>
@@ -84,7 +83,7 @@ export function TablePagination({ total, pages }: TablePaginationProps) {
         <PaginationItem>
           <Button disabled={!hasNextPage} variant="link">
             <PaginationNext
-              href={`${env.BASE_URL}/${pathname}?page=${
+              href={`${process.env.BASE_URL}/${pathname}?page=${
                 Number(page) + 1
               }&limit=${limit}`}
             />

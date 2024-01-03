@@ -52,7 +52,7 @@ export default async function Page({
         <div className="flex-1 space-y-4 pb-4">
           <div className="flex items-center justify-between">
             <strong className="text-xl">Aditivos:</strong>
-            <Modal title="Cadastro" description="Adcione um novo adtivo">
+            <Modal title="Cadastro" description="Adcione um novo aditivo">
               <AmendmentForm contractId={data.id} />
             </Modal>
           </div>

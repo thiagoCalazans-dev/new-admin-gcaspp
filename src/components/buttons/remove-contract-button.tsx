@@ -16,7 +16,7 @@ export function RemoveContractButton(data: RemoveButtonProps) {
   async function handleRemoveClick() {
     try {
       await removeContractAction({ id: data.id });
-      onSuccess("Módulo removido com sucesso");
+      onSuccess("Contrato removido com sucesso");
     } catch (error: Error | any) {
       onError(error.message);
     }

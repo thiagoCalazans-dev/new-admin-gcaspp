@@ -73,7 +73,7 @@ export function AmendmentForm({ contractId }: AmendmentFormProps) {
               name="number"
               render={({ field }) => (
                 <FormItem>
-                  <FormLabel>Número do Contrato</FormLabel>
+                  <FormLabel>Número do Aditivo</FormLabel>
                   <FormControl>
                     <Input
                       disabled={form.formState.isSubmitting}
