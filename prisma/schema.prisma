@@ -11,10 +11,11 @@ datasource db {
 }
 
 model Module {
-  id         String   @id @default(uuid())
-  name       String   @unique
-  created_at DateTime @default(now())
-  updated_at DateTime @updatedAt
+  id         String            @id @default(uuid())
+  name       String            @unique
+  created_at DateTime          @default(now())
+  updated_at DateTime          @updatedAt
+  amendments AmendmentModule[]
 
   @@map("modules")
 }
@@ -82,11 +83,28 @@ model Amendment {
   value             Decimal
   subscription_date DateTime
   due_date          DateTime
-  signature_date    DateTime
   contract_id       String
 
-  created_at DateTime @default(now())
-  updated_at DateTime @updatedAt
+  created_at DateTime          @default(now())
+  updated_at DateTime          @updatedAt
+  modules    AmendmentModule[]
 
   @@map("amendments")
+}
+
+model AmendmentModule {
+  id           String    @id @default(uuid())
+  amendment_id String
+  amendment    Amendment @relation(fields: [amendment_id], references: [id])
+  module_id    String
+  module       Module    @relation(fields: [module_id], references: [id])
+  value        Decimal
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  @@unique([module_id, amendment_id], name: "unique_contract_amendment_modules")
+  @@index([amendment_id])
+  @@index([module_id])
+  @@map("amendment_modules")
 }

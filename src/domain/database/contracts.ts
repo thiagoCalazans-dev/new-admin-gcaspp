@@ -1,9 +1,13 @@
 import { adapterContract } from "../adapters/contract-adapter";
-import { Contract } from "../entities/contract";
+import { dbAmendment } from "./amendments";
 import { db, dbType } from "./config";
 
 const dbContractValidator = dbType.validator<dbType.ContractDefaultArgs>()({
-  include: { bidding_type: true, amendments: true, supplier: true },
+  include: {
+    bidding_type: true,
+    amendments: true,
+    supplier: true,
+  },
 });
 
 export type dbContract = dbType.ContractGetPayload<typeof dbContractValidator>;
@@ -29,20 +33,83 @@ async function getAll(page: number, limit: number) {
   const contracts = dbContracts.map((dbContract) =>
     adapterContract.dbToDomain(dbContract)
   );
-  return contracts;
+  const pages = Math.ceil(total / take);
+
+  const output = {
+    data: contracts,
+    total: total,
+    pages: pages,
+  };
+
+  return output;
 }
 
-// interface saveContract {
-//   name: string;
-// }
+async function FindOne(contractId: string) {
+  const [dbContract] = await db.$transaction([
+    db.contract.findUnique({
+      where: {
+        id: contractId,
+      },
+      include: {
+        bidding_type: true,
+        supplier: true,
+        amendments: true,
+      },
+    }),
+    db.amendment.count({
+      where: {
+        contract_id: contractId,
+      },
+    }),
+  ]);
 
-// async function save(data: saveContract): Promise<void> {
-//   await db.contract.create({
-//     data: {
-//       name: data.name,
-//     },
-//   });
-// }
+  if (!dbContract) throw new Error("nao foi encontrado");
+
+  const dbData = {
+    ...dbContract,
+  };
+
+  const contract = adapterContract.dbToDomain(dbContract);
+
+  const output = {
+    data: contract,
+  };
+
+  return output;
+}
+
+interface SaveContract {
+  number: number;
+  processNumber: number;
+  biddingTypeId: string;
+  supplierId: string;
+  fixture: string;
+  billingDay: number;
+  value: number;
+  subscriptionDate: Date;
+  dueDate: Date;
+}
+
+async function save(data: SaveContract): Promise<void> {
+  await db.contract.create({
+    data: {
+      billing_day: data.billingDay,
+      fixture: data.fixture,
+      number: data.number,
+      process_number: data.processNumber,
+      supplier_id: data.supplierId,
+      bidding_type_id: data.biddingTypeId,
+      amendments: {
+        create: {
+          due_date: data.dueDate,
+          number: 0,
+          subscription_date: data.subscriptionDate,
+          value: data.value,
+        },
+      },
+    },
+  });
+}
 
 async function remove(id: string): Promise<void> {
   await db.contract.delete({
@@ -54,6 +121,7 @@ async function remove(id: string): Promise<void> {
 
 export const dbContract = {
   getAll,
-  // save,
+  save,
   remove,
+  FindOne,
 };

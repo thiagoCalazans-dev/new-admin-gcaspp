@@ -1,44 +1,46 @@
 import { adapterAmendment } from "../adapters/amendment-adapter";
-import { db } from "./config";
+import { db, dbType } from "./config";
 
-async function getAll(page: number, limit: number) {
-  const skip = limit * (page - 1);
-  const take = limit;
+const dbAmendmentValidator = dbType.validator<dbType.AmendmentDefaultArgs>()({
+  include: { modules: true },
+});
 
-  const [dbAmendments, total] = await db.$transaction([
-    db.amendment.findMany({
-      skip,
-      take,
-    }),
-    db.amendment.count(),
-  ]);
+export type dbAmendment = dbType.AmendmentGetPayload<
+  typeof dbAmendmentValidator
+>;
 
-  const modules = dbAmendments.map((dbModule) =>
-    adapterAmendment.dbToDomain(dbModule)
-  );
+async function getAmendmentTotalValue(amendmentId: string): Promise<number> {
+  const amendmentValue = await db.amendment.findUnique({
+    select: { value: true },
+    where: {
+      id: amendmentId,
+    },
+  });
 
-  const pages = Math.ceil(total / take);
+  if (!amendmentValue) throw new Error("Aditivo não encontrado");
 
-  const output = {
-    data: modules,
-    total: total,
-    pages: pages,
-  };
-
-  return output;
+  return Number(amendmentValue.value);
 }
 
-// interface saveAmendment {
-//   name: string;
-// }
+interface saveAmendment {
+  contractId: string;
+  number: number;
+  value: number;
+  subscriptionDate: Date;
+  dueDate: Date;
+}
 
-// async function save(data: saveAmendment): Promise<void> {
-//   await db.amendment.create({
-//     data: {
-//       name: data.name,
-//     },
-//   });
-// }
+async function save(data: saveAmendment): Promise<void> {
+  await db.amendment.create({
+    data: {
+      contract_id: data.contractId,
+      due_date: data.dueDate,
+      number: data.number,
+      subscription_date: data.subscriptionDate,
+      value: data.value,
+    },
+  });
+}
 
 async function remove(id: string): Promise<void> {
   await db.amendment.delete({
@@ -49,7 +51,7 @@ async function remove(id: string): Promise<void> {
 }
 
 export const dbAmendment = {
-  getAll,
-  // save,
+  getAmendmentTotalValue,
   remove,
+  save,
 };

@@ -27,7 +27,7 @@ export async function SupplierTable({ data, pages, total }: TableProps) {
             <TableHead>CNPJ</TableHead>
             <TableHead>Cidade</TableHead>
             <TableHead className="flex justify-end items-center">
-              Ações
+              Excluir
             </TableHead>
           </TableRow>
         </TableHeader>
@@ -47,7 +47,7 @@ export async function SupplierTable({ data, pages, total }: TableProps) {
         </TableBody>
         <TableFooter>
           <TableRow>
-            <TableCell colSpan={2}>
+            <TableCell colSpan={10}>
               <TablePagination total={total} pages={pages} />
             </TableCell>
           </TableRow>

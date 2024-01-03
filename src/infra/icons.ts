@@ -1,6 +1,6 @@
 export {
-  CheckIcon,
   ChevronDown,
+  ChevronUp,
   Trash,
   X,
   Copy,
@@ -10,5 +10,11 @@ export {
   EuroIcon,
   ChevronLeft,
   ChevronRight,
+  Check,
   MoreHorizontal,
+  View,
+  CalendarIcon,
+  FileText,
+  Library,
+  Wallet,
 } from "lucide-react";

@@ -1,4 +1,5 @@
 import { s } from "@/src/infra/schema";
+import { AmendmentModule } from "./amendment-modules";
 
 const amendmentSkeleton = {
   id: s.string(),
@@ -6,18 +7,14 @@ const amendmentSkeleton = {
   value: s.number(),
   subscriptionDate: s.date(),
   dueDate: s.date(),
-  signatureDate: s.date(),
+  modules: AmendmentModule.array().optional(),
 };
 
 export const Amendment = s
   .object(amendmentSkeleton)
-  .required()
-  .refine((data) => {
-    if (
-      data.dueDate < data.subscriptionDate ||
-      data.dueDate < data.signatureDate
-    )
-      throw new Error("Data de Vencimento menor que as outras datas");
+
+  .refine((data) => data.dueDate > data.subscriptionDate, {
+    message: "Data de vencimento não pode ser maior que assinatura",
   });
 
 export type Amendment = s.infer<typeof Amendment>;

@@ -22,5 +22,5 @@ function dbToDomain(contract: dbContract): Contract {
     ),
   };
 
-  return Contract.parse(contract);
+  return Contract.parse(ContractMapped);
 }

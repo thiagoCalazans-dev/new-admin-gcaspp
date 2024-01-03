@@ -25,7 +25,7 @@ export async function EntityTable({ data, pages, total }: TableProps) {
           <TableRow>
             <TableHead>Nome</TableHead>
             <TableHead className="flex justify-end items-center">
-              Ações
+              Excluir
             </TableHead>
           </TableRow>
         </TableHeader>

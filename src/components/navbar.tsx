@@ -22,13 +22,12 @@ const cadastros = [
     href: "/suppliers",
   },
   {
+    title: "Modalidades",
+    href: "/bidding-types",
+  },
+  {
     title: "Modulos",
     href: "/modules",
-  },
-
-  {
-    title: "Tipos de Licitacão",
-    href: "/bidding-types",
   },
 ];
 
