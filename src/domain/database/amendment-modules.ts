@@ -48,6 +48,8 @@ interface saveAmendmentModule {
   amendmentId: string;
   moduleId: string;
   value: number;
+  implementationValue: number;
+  monthValue: number;
 }
 
 async function save(data: saveAmendmentModule): Promise<void> {
@@ -57,6 +59,8 @@ async function save(data: saveAmendmentModule): Promise<void> {
         amendment_id: data.amendmentId,
         module_id: data.moduleId,
         value: data.value,
+        implementation_value: data.implementationValue,
+        month_value: data.monthValue,
       },
     });
   } catch (error) {

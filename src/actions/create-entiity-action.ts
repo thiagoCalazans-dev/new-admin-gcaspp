@@ -3,12 +3,11 @@
 import { revalidatePath } from "next/cache";
 import { dbEntity } from "../domain/database/entities";
 import { s } from "../infra/schema";
+import { Entity } from "../domain/entities/entity";
 
-const CreateEntityActionSkeleton = {
-  name: s.string(),
-};
-
-const CreateEntityAction = s.object(CreateEntityActionSkeleton).required();
+const CreateEntityAction = Entity.omit({
+  id: true,
+});
 type CreateEntityAction = s.infer<typeof CreateEntityAction>;
 
 export async function createEntityAction(data: CreateEntityAction) {

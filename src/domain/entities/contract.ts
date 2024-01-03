@@ -5,8 +5,8 @@ import { Amendment } from "./amendment";
 
 const contractSkeleton = {
   id: s.string(),
-  number: s.number(),
-  processNumber: s.number(),
+  number: s.string().regex(/^\d*(\/\d{4})?$/, "deve finalizar com /ANO"),
+  processNumber: s.string().regex(/^\d*(\/\d{4})?$/, "deve finalizar com /ANO"),
   biddingType: BiddingType,
   supplier: Supplier,
   fixture: s.string(),

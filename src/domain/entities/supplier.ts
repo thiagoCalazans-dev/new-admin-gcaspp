@@ -12,13 +12,15 @@ const supplierSkeleton = {
     }
     return cnpj;
   }),
-  zipCode: s.string(),
+  zipCode: s
+    .string()
+    .regex(/^[0-9]{5}-?[0-9]{3}$/, "deve ser no formato 00000-000"),
   neighborhood: s.string(),
   city: s.string(),
   address: s.string(),
-  number: s.number().min(0).nullable(),
-  observation: s.string().nullable(),
+  number: s.coerce.number().optional(),
+  observation: s.string().optional(),
 };
 
-export const Supplier = s.object(supplierSkeleton).required();
+export const Supplier = s.object(supplierSkeleton);
 export type Supplier = s.infer<typeof Supplier>;

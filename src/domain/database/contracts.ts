@@ -79,8 +79,8 @@ async function FindOne(contractId: string) {
 }
 
 interface SaveContract {
-  number: number;
-  processNumber: number;
+  number: string;
+  processNumber: string;
   biddingTypeId: string;
   supplierId: string;
   fixture: string;

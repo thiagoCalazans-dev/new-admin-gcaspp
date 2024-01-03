@@ -10,11 +10,12 @@ const amendmentSkeleton = {
   modules: AmendmentModule.array().optional(),
 };
 
-export const Amendment = s
-  .object(amendmentSkeleton)
-
-  .refine((data) => data.dueDate > data.subscriptionDate, {
+export const AmendmentPrimitive = s.object(amendmentSkeleton);
+export const Amendment = AmendmentPrimitive.refine(
+  (data) => data.dueDate > data.subscriptionDate,
+  {
     message: "Data de vencimento não pode ser maior que assinatura",
-  });
+  }
+);
 
 export type Amendment = s.infer<typeof Amendment>;

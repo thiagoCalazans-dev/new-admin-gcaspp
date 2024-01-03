@@ -3,25 +3,33 @@
 import { revalidatePath } from "next/cache";
 import { s } from "../infra/schema";
 import { dbContract } from "../domain/database/contracts";
+import { Contract } from "../domain/entities/contract";
+import { Amendment } from "../domain/entities/amendment";
 
-const CreateContractActionSkeleton = {
-  number: s.number(),
-  processNumber: s.number(),
-  biddingTypeId: s.string(),
-  supplierId: s.string(),
-  fixture: s.string(),
-  billingDay: s.number(),
-  value: s.number(),
-  subscriptionDate: s.date(),
-  dueDate: s.date(),
-};
-
-const CreateContractAction = s
-  .object(CreateContractActionSkeleton)
+const CreateContractAction = Contract.omit({
+  amendments: true,
+  biddingType: true,
+  supplier: true,
+  id: true,
+})
+  .extend({
+    supplierId: s.string(),
+    biddingTypeId: s.string(),
+    subscriptionDate: s.date(),
+    dueDate: s.date(),
+    value: s.number(),
+  })
   .required()
   .refine((data) => data.dueDate > data.subscriptionDate, {
     message: "Data de vencimento não pode ser maior que assinatura",
   });
+
+// const CreateContractAction = s
+//   .object(CreateContractActionSkeleton)
+//   .required()
+//   .refine((data) => data.dueDate > data.subscriptionDate, {
+//     message: "Data de vencimento não pode ser maior que assinatura",
+//   });
 
 type CreateContractAction = s.infer<typeof CreateContractAction>;
 

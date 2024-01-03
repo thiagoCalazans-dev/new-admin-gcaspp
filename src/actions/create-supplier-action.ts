@@ -3,6 +3,7 @@
 import { revalidatePath } from "next/cache";
 import { dbSupplier } from "../domain/database/suppliers";
 import { s } from "../infra/schema";
+import { Supplier } from "../domain/entities/supplier";
 
 const CreateSupplierActionSkeleton = {
   name: s.string().min(3),
@@ -22,7 +23,9 @@ const CreateSupplierActionSkeleton = {
   observation: s.string().optional(),
 };
 
-const CreateSupplierAction = s.object(CreateSupplierActionSkeleton);
+const CreateSupplierAction = Supplier.omit({
+  id: true,
+});
 type CreateSupplierAction = s.infer<typeof CreateSupplierAction>;
 
 export async function createSupplierAction(data: CreateSupplierAction) {

@@ -12,6 +12,8 @@ function dbToDomain(dbAmendmentModule: dbAmendmentModules): AmendmentModule {
     amendmentId: dbAmendmentModule.amendment_id,
     module: adapterModule.dbToDomain(dbAmendmentModule.module),
     value: Number(dbAmendmentModule.value),
+    implementationValue: Number(dbAmendmentModule.implementation_value),
+    monthValue: Number(dbAmendmentModule.month_value),
   };
   return AmendmentModule.parse(amendmentModule);
 }

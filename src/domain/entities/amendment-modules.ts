@@ -5,8 +5,11 @@ const amendmentModuleSkeleton = {
   id: s.string(),
   module: Module,
   amendmentId: s.string(),
-  value: s.number(),
+  value: s.number().positive(),
+  implementationValue: s.number().nonnegative(),
+  monthValue: s.number().positive(),
 };
 
 export const AmendmentModule = s.object(amendmentModuleSkeleton);
+
 export type AmendmentModule = s.infer<typeof AmendmentModule>;

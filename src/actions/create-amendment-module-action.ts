@@ -3,18 +3,16 @@
 import { revalidatePath } from "next/cache";
 import { s } from "../infra/schema";
 import { dbAmendmentModule } from "../domain/database/amendment-modules";
-import { db } from "../domain/database/config";
 import { dbAmendment } from "../domain/database/amendments";
+import { AmendmentModule } from "../domain/entities/amendment-modules";
 
-const CreateAmendmentModuleActionSkeleton = {
-  amendmentId: s.string(),
+const CreateAmendmentModuleAction = AmendmentModule.omit({
+  id: true,
+  module: true,
+}).extend({
   moduleId: s.string(),
-  value: s.number().positive(),
-};
+});
 
-const CreateAmendmentModuleAction = s
-  .object(CreateAmendmentModuleActionSkeleton)
-  .required();
 type CreateAmendmentModuleAction = s.infer<typeof CreateAmendmentModuleAction>;
 
 export async function createAmendmentModuleAction(

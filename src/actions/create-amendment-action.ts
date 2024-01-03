@@ -3,18 +3,14 @@
 import { revalidatePath } from "next/cache";
 import { s } from "../infra/schema";
 import { dbAmendment } from "../domain/database/amendments";
+import { AmendmentPrimitive } from "../domain/entities/amendment";
 
-const CreateAmendmentActionSkeleton = {
+const CreateAmendmentAction = AmendmentPrimitive.extend({
   contractId: s.string(),
-  number: s.number(),
-  value: s.number(),
-  subscriptionDate: s.date(),
-  dueDate: s.date(),
-};
-
-const CreateAmendmentAction = s
-  .object(CreateAmendmentActionSkeleton)
-  .required()
+})
+  .omit({
+    id: true,
+  })
   .refine((data) => data.dueDate > data.subscriptionDate, {
     message: "Data de vencimento não pode ser maior que assinatura",
   });

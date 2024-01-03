@@ -61,8 +61,8 @@ model Supplier {
 
 model Contract {
   id              String      @id @default(uuid())
-  number          Int
-  process_number  Int
+  number          String
+  process_number  String
   bidding_type    BiddingType @relation(fields: [bidding_type_id], references: [id])
   supplier        Supplier    @relation(fields: [supplier_id], references: [id])
   fixture         String
@@ -95,12 +95,14 @@ model Amendment {
 }
 
 model AmendmentModule {
-  id           String    @id @default(uuid())
-  amendment_id String
-  amendment    Amendment @relation(fields: [amendment_id], references: [id])
-  module_id    String
-  module       Module    @relation(fields: [module_id], references: [id])
-  value        Decimal
+  id                   String    @id @default(uuid())
+  amendment_id         String
+  amendment            Amendment @relation(fields: [amendment_id], references: [id])
+  module_id            String
+  module               Module    @relation(fields: [module_id], references: [id])
+  value                Decimal
+  implementation_value Decimal?
+  month_value          Decimal
 
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt

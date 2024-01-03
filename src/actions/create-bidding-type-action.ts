@@ -3,14 +3,12 @@
 import { revalidatePath } from "next/cache";
 import { dbBiddingType } from "../domain/database/bidding-types";
 import { s } from "../infra/schema";
+import { BiddingType } from "../domain/entities/bidding-type";
 
-const CreateBiddingTypeActionSkeleton = {
-  name: s.string(),
-};
+const CreateBiddingTypeAction = BiddingType.omit({
+  id: true,
+});
 
-const CreateBiddingTypeAction = s
-  .object(CreateBiddingTypeActionSkeleton)
-  .required();
 type CreateBiddingTypeAction = s.infer<typeof CreateBiddingTypeAction>;
 
 export async function createBiddingTypeAction(data: CreateBiddingTypeAction) {

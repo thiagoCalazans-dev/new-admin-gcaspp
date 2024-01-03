@@ -3,12 +3,11 @@
 import { revalidatePath } from "next/cache";
 import { dbModule } from "../domain/database/modules";
 import { s } from "../infra/schema";
+import { Module } from "../domain/entities/module";
 
-const CreateModuleActionSkeleton = {
-  name: s.string(),
-};
-
-const CreateModuleAction = s.object(CreateModuleActionSkeleton).required();
+const CreateModuleAction = Module.omit({
+  id: true,
+});
 type CreateModuleAction = s.infer<typeof CreateModuleAction>;
 
 export async function createModuleAction(data: CreateModuleAction) {

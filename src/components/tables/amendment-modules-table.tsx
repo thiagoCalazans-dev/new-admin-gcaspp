@@ -67,7 +67,9 @@ export async function AmendmentModulesTable({
           <TableHeader>
             <TableRow>
               <TableHead>Nome</TableHead>
-              <TableHead>Valor</TableHead>
+              <TableHead>Total</TableHead>
+              <TableHead>Mensal</TableHead>
+              <TableHead>Implantação</TableHead>
 
               <TableHead className="flex justify-end items-center">
                 Excluir
@@ -80,6 +82,12 @@ export async function AmendmentModulesTable({
                 <TableRow key={item.id}>
                   <TableCell>{item.module.name}</TableCell>
                   <TableCell>{formatCurrencyTo.Real(item.value)}</TableCell>
+                  <TableCell>
+                    {formatCurrencyTo.Real(item.monthValue)}
+                  </TableCell>
+                  <TableCell>
+                    {formatCurrencyTo.Real(item.implementationValue)}
+                  </TableCell>
                   <TableCell className="flex justify-end items-center">
                     <RemoveAmendmentModuleButton id={item.id} />
                   </TableCell>

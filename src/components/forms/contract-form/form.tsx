@@ -25,8 +25,18 @@ interface ContractFormProps {
 }
 
 const FormContractSkeleton = {
-  number: s.string().min(1, "campo obrigatório"),
-  processNumber: s.string().min(1, "campo obrigatório"),
+  number: s
+    .string()
+    .regex(
+      /^\d*(\/\d{4})$/,
+      "deve possuir apenas numeros finalizar com /0000, ex:/2023"
+    ),
+  processNumber: s
+    .string()
+    .regex(
+      /^\d*(\/\d{4})$/,
+      "deve possuir apenas numeros finalizar com /0000, ex:/2023"
+    ),
   biddingTypeId: s.string().min(1, "campo obrigatório"),
   supplierId: s.string().min(1, "campo obrigatório"),
   fixture: s.string().min(1, "campo obrigatório"),
@@ -68,10 +78,8 @@ export function ClientContractForm({
     try {
       await createContractAction({
         ...formValues,
-        number: Number(formValues.number),
         billingDay: Number(formValues.billingDay),
         value: Number(formValues.value),
-        processNumber: Number(formValues.processNumber),
       });
       onSuccess("Contrato adcionado com sucesso");
       form.reset();
