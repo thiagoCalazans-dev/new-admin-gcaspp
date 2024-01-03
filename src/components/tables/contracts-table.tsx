@@ -45,7 +45,7 @@ export async function ContractTable({ data, pages, total }: TableProps) {
                   {item.amendments[item.amendments.length - 1].value}
                 </TableCell>
                 <TableCell className="flex justify-end items-center">
-                  <Button variant="default" asChild>
+                  <Button size="icon" variant="default" asChild>
                     <Link href={`/contracts/${item.id}`}>
                       <View />
                     </Link>

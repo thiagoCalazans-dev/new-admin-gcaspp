@@ -13,6 +13,16 @@ interface ModalProps {
   description?: string;
   textButton?: string | any;
   children?: React.ReactNode;
+  size?: "default" | "sm" | "lg" | "icon" | null | undefined;
+  variant?:
+    | "link"
+    | "default"
+    | "destructive"
+    | "outline"
+    | "secondary"
+    | "ghost"
+    | null
+    | undefined;
 }
 
 export function Modal({
@@ -20,11 +30,15 @@ export function Modal({
   textButton = "Cadastrar",
   title,
   children,
+  size = "default",
+  variant = "default",
 }: ModalProps) {
   return (
     <Dialog>
       <DialogTrigger asChild>
-        <Button variant="default">{textButton}</Button>
+        <Button size={size} variant={variant}>
+          {textButton}
+        </Button>
       </DialogTrigger>
       <DialogContent>
         <DialogHeader>

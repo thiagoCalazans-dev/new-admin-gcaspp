@@ -24,7 +24,12 @@ export function RemoveContractButton(data: RemoveButtonProps) {
 
   return (
     <ButtonTooltip text="Remover contrato">
-      <Button variant="destructive" type="button" onClick={handleRemoveClick}>
+      <Button
+        variant="destructive"
+        type="button"
+        size="icon"
+        onClick={handleRemoveClick}
+      >
         <Trash />
       </Button>
     </ButtonTooltip>

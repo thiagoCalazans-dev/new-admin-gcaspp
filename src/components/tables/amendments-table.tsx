@@ -71,9 +71,10 @@ interface ModulesModalProps {
 function ModulesModal({ amendment }: ModulesModalProps) {
   return (
     <Modal
-      title="Módulos "
-      description="cadastre os módulos em seu adivito"
+      title="Módulos"
+      description="cadastre os módulos em seu aditivo"
       textButton={<Library />}
+      size="icon"
     >
       <div className="space-y-8 border-t pt-8">
         <AmendmentModuleForm amendmentId={amendment.id} />

@@ -22,7 +22,12 @@ export function RemoveSupplierButton(data: RemoveButtonProps) {
   }
 
   return (
-    <Button variant="destructive" type="button" onClick={handleRemoveClick}>
+    <Button
+      variant="destructive"
+      type="button"
+      size="icon"
+      onClick={handleRemoveClick}
+    >
       <Trash />
     </Button>
   );

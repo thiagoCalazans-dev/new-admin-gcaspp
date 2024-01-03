@@ -22,7 +22,12 @@ export function RemoveModuleButton(data: RemoveButtonProps) {
   }
 
   return (
-    <Button variant="destructive" type="button" onClick={handleRemoveClick}>
+    <Button
+      variant="destructive"
+      size="icon"
+      type="button"
+      onClick={handleRemoveClick}
+    >
       <Trash />
     </Button>
   );
