@@ -30,9 +30,7 @@ export function TablePagination({ total, pages }: TablePaginationProps) {
         <PaginationItem>
           <Button disabled={!hasPrevPage} variant="link">
             <PaginationPrevious
-              href={`${process.env.BASE_URL}/${pathname}/?page=${
-                Number(page) - 1
-              }&limit=${limit}`}
+              href={`/${pathname}/?page=${Number(page) - 1}&limit=${limit}`}
             />
           </Button>
         </PaginationItem>
@@ -44,9 +42,7 @@ export function TablePagination({ total, pages }: TablePaginationProps) {
             className="disabled:hidden"
           >
             <PaginationLink
-              href={`${process.env.BASE_URL}/${pathname}/?page=${
-                Number(page) - 1
-              }&limit=${limit}`}
+              href={`/${pathname}/?page=${Number(page) - 1}&limit=${limit}`}
             >
               {Number(page) - 1}
             </PaginationLink>
@@ -64,9 +60,7 @@ export function TablePagination({ total, pages }: TablePaginationProps) {
             className="disabled:hidden"
           >
             <PaginationLink
-              href={`${process.env.BASE_URL}/${pathname}?page=${
-                Number(page) + 1
-              }&limit=${limit}`}
+              href={`$/${pathname}?page=${Number(page) + 1}&limit=${limit}`}
             >
               {Number(page) + 1}
             </PaginationLink>
@@ -74,9 +68,7 @@ export function TablePagination({ total, pages }: TablePaginationProps) {
         </PaginationItem>
         <PaginationEllipsis />
         <PaginationItem>
-          <PaginationLink
-            href={`${process.env.BASE_URL}/${pathname}?page=${pages}&limit=${limit}`}
-          >
+          <PaginationLink href={`/${pathname}?page=${pages}&limit=${limit}`}>
             {pages}
           </PaginationLink>
         </PaginationItem>
