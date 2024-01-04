@@ -31,13 +31,10 @@ const FormSupplierSkeleton = {
   city: s.string(),
   neighborhood: s.string(),
   address: s.string(),
-  number: s
-    .string()
-    .regex(/^\d+$/, {
-      message: "A string deve conter apenas números.",
-    })
-    .optional(),
-  observation: s.string().optional(),
+  number: s.string().regex(/^\d+$/, {
+    message: "A string deve conter apenas números.",
+  }),
+  observation: s.string(),
 };
 const FormSupplier = s.object(FormSupplierSkeleton);
 type FormSupplier = s.infer<typeof FormSupplier>;

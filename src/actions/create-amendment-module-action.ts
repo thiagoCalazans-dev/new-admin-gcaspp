@@ -23,6 +23,7 @@ export async function createAmendmentModuleAction(
   const TotalAmendmentValue = await dbAmendment.getAmendmentTotalValue(
     data.amendmentId
   );
+
   const TotalModulesValue =
     await dbAmendmentModule.getAmendmentModulesTotalValue(data.amendmentId);
 

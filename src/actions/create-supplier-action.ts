@@ -5,24 +5,6 @@ import { dbSupplier } from "../domain/database/suppliers";
 import { s } from "../infra/schema";
 import { Supplier } from "../domain/entities/supplier";
 
-const CreateSupplierActionSkeleton = {
-  name: s.string().min(3),
-  cnpj: s
-    .string()
-    .regex(
-      /^\d{2}\.\d{3}\.\d{3}\/\d{4}\-\d{2}$/,
-      "deve possuir o formato 00.000.000/000.00"
-    ),
-  zipCode: s
-    .string()
-    .regex(/^\d{5}-?\d{3}$/, "deve possuir o formato 00000-000"),
-  city: s.string(),
-  neighborhood: s.string(),
-  address: s.string(),
-  number: s.coerce.number().optional(),
-  observation: s.string().optional(),
-};
-
 const CreateSupplierAction = Supplier.omit({
   id: true,
 });

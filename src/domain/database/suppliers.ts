@@ -29,14 +29,14 @@ async function getAll(page: number, limit: number) {
 }
 
 interface saveSupplier {
-  number?: number;
+  number: number | null;
   name: string;
   cnpj: string;
   zipCode: string;
   city: string;
   address: string;
   neighborhood: string;
-  observation?: string;
+  observation: string | null;
 }
 
 async function save(data: saveSupplier): Promise<void> {

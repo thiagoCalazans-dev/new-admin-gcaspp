@@ -18,8 +18,8 @@ const supplierSkeleton = {
   neighborhood: s.string(),
   city: s.string(),
   address: s.string(),
-  number: s.coerce.number().optional(),
-  observation: s.string().optional(),
+  number: s.coerce.number().nullable().default(null),
+  observation: s.string().nullable().default(null),
 };
 
 export const Supplier = s.object(supplierSkeleton);
