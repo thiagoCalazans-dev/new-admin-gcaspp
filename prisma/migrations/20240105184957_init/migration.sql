@@ -48,8 +48,8 @@ CREATE TABLE "suppliers" (
 -- CreateTable
 CREATE TABLE "contracts" (
     "id" TEXT NOT NULL,
-    "number" INTEGER NOT NULL,
-    "process_number" INTEGER NOT NULL,
+    "number" TEXT NOT NULL,
+    "process_number" TEXT NOT NULL,
     "fixture" TEXT NOT NULL,
     "billing_day" INTEGER NOT NULL,
     "bidding_type_id" TEXT NOT NULL,
@@ -78,10 +78,14 @@ CREATE TABLE "amendments" (
 CREATE TABLE "amendment_modules" (
     "id" TEXT NOT NULL,
     "amendment_id" TEXT NOT NULL,
+    "entity_id" TEXT NOT NULL,
     "module_id" TEXT NOT NULL,
     "value" DECIMAL(65,30) NOT NULL,
+    "implementation_value" DECIMAL(65,30),
+    "month_value" DECIMAL(65,30) NOT NULL,
     "createdAt" TIMESTAMP(3) NOT NULL DEFAULT CURRENT_TIMESTAMP,
     "updatedAt" TIMESTAMP(3) NOT NULL,
+    "entityId" TEXT NOT NULL,
 
     CONSTRAINT "amendment_modules_pkey" PRIMARY KEY ("id")
 );
@@ -108,7 +112,10 @@ CREATE INDEX "amendment_modules_amendment_id_idx" ON "amendment_modules"("amendm
 CREATE INDEX "amendment_modules_module_id_idx" ON "amendment_modules"("module_id");
 
 -- CreateIndex
-CREATE UNIQUE INDEX "amendment_modules_module_id_amendment_id_key" ON "amendment_modules"("module_id", "amendment_id");
+CREATE INDEX "amendment_modules_entity_id_idx" ON "amendment_modules"("entity_id");
+
+-- CreateIndex
+CREATE UNIQUE INDEX "amendment_modules_module_id_amendment_id_entity_id_key" ON "amendment_modules"("module_id", "amendment_id", "entity_id");
 
 -- AddForeignKey
 ALTER TABLE "contracts" ADD CONSTRAINT "contracts_bidding_type_id_fkey" FOREIGN KEY ("bidding_type_id") REFERENCES "bidding_types"("id") ON DELETE RESTRICT ON UPDATE CASCADE;
@@ -121,6 +128,9 @@ ALTER TABLE "amendments" ADD CONSTRAINT "amendments_contract_id_fkey" FOREIGN KE
 
 -- AddForeignKey
 ALTER TABLE "amendment_modules" ADD CONSTRAINT "amendment_modules_amendment_id_fkey" FOREIGN KEY ("amendment_id") REFERENCES "amendments"("id") ON DELETE RESTRICT ON UPDATE CASCADE;
+
+-- AddForeignKey
+ALTER TABLE "amendment_modules" ADD CONSTRAINT "amendment_modules_entity_id_fkey" FOREIGN KEY ("entity_id") REFERENCES "entities"("id") ON DELETE RESTRICT ON UPDATE CASCADE;
 
 -- AddForeignKey
 ALTER TABLE "amendment_modules" ADD CONSTRAINT "amendment_modules_module_id_fkey" FOREIGN KEY ("module_id") REFERENCES "modules"("id") ON DELETE RESTRICT ON UPDATE CASCADE;

@@ -33,10 +33,11 @@ model BiddingType {
 }
 
 model Entity {
-  id         String   @id @default(uuid())
-  name       String   @unique
-  created_at DateTime @default(now())
-  updated_at DateTime @updatedAt
+  id              String            @id @default(uuid())
+  name            String            @unique
+  created_at      DateTime          @default(now())
+  updated_at      DateTime          @updatedAt
+  AmendmentModule AmendmentModule[]
 
   @@map("entities")
 }
@@ -98,6 +99,8 @@ model AmendmentModule {
   id                   String    @id @default(uuid())
   amendment_id         String
   amendment            Amendment @relation(fields: [amendment_id], references: [id])
+  entity_id            String
+  entity               Entity    @relation(fields: [entity_id], references: [id])
   module_id            String
   module               Module    @relation(fields: [module_id], references: [id])
   value                Decimal
@@ -107,8 +110,9 @@ model AmendmentModule {
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
 
-  @@unique([module_id, amendment_id], name: "unique_contract_amendment_modules")
+  @@unique([module_id, amendment_id, entity_id], name: "unique_contract_amendment_modules")
   @@index([amendment_id])
   @@index([module_id])
+  @@index([entity_id])
   @@map("amendment_modules")
 }

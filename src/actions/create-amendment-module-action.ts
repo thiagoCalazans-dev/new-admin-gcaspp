@@ -9,8 +9,10 @@ import { AmendmentModule } from "../domain/entities/amendment-modules";
 const CreateAmendmentModuleAction = AmendmentModule.omit({
   id: true,
   module: true,
+  entity: true,
 }).extend({
   moduleId: s.string(),
+  entityId: s.string(),
 });
 
 type CreateAmendmentModuleAction = s.infer<typeof CreateAmendmentModuleAction>;

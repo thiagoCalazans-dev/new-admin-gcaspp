@@ -4,7 +4,7 @@ import { db, dbType } from "./config";
 
 const dbAmendmentModuleValidator =
   dbType.validator<dbType.AmendmentModuleDefaultArgs>()({
-    include: { module: true },
+    include: { module: true, entity: true },
   });
 
 export type dbAmendmentModules = dbType.AmendmentModuleGetPayload<
@@ -18,6 +18,7 @@ async function findManyByAmendmentId(amendmentId: string) {
     },
     include: {
       module: true,
+      entity: true,
     },
   });
   const amendmentModules = dbAmendmentModule.map((dbAmendmentModule) =>
@@ -47,6 +48,7 @@ async function getAmendmentModulesTotalValue(
 interface saveAmendmentModule {
   amendmentId: string;
   moduleId: string;
+  entityId: string;
   value: number;
   implementationValue: number;
   monthValue: number;
@@ -57,6 +59,7 @@ async function save(data: saveAmendmentModule): Promise<void> {
     await db.amendmentModule.create({
       data: {
         amendment_id: data.amendmentId,
+        entity_id: data.entityId,
         module_id: data.moduleId,
         value: data.value,
         implementation_value: data.implementationValue,
