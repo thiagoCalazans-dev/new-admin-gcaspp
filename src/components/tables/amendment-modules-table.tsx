@@ -66,7 +66,8 @@ export async function AmendmentModulesTable({
         <Table>
           <TableHeader>
             <TableRow>
-              <TableHead>Nome</TableHead>
+              <TableHead>Entidade</TableHead>
+              <TableHead>Módulo</TableHead>
               <TableHead>Total</TableHead>
               <TableHead>Mensal</TableHead>
               <TableHead>Implantação</TableHead>
@@ -80,6 +81,7 @@ export async function AmendmentModulesTable({
             {data.map((item) => {
               return (
                 <TableRow key={item.id}>
+                  <TableCell>{item.entity.name}</TableCell>
                   <TableCell>{item.module.name}</TableCell>
                   <TableCell>{formatCurrencyTo.Real(item.value)}</TableCell>
                   <TableCell>

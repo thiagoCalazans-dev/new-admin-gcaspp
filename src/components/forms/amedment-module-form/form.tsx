@@ -80,91 +80,80 @@ export function ClientAmendmentModulesForm({
 
   return (
     <Form {...form}>
-      <form
-        onSubmit={form.handleSubmit(onSubmit)}
-        className="flex gap-4  items-end"
-      >
-        <div className="space-y-2">
-          <div className="grid grid-cols-2 gap-4  items-start">
-            <Combobox
-              data={modules}
-              form={form}
-              label="Módulo"
-              name="moduleId"
-            />
-            <Combobox
-              data={entities}
-              form={form}
-              label="Módulo"
-              name="moduleId"
-            />
-          </div>
-          <div className="grid grid-cols-3 gap-4  items-start">
-            <FormField
-              control={form.control}
-              name="value"
-              render={({ field }) => (
-                <FormItem className="flex flex-col gap-1 w-full">
-                  <FormLabel>Valor Total</FormLabel>
-                  <FormControl>
-                    <Input
-                      type="text"
-                      disabled={form.formState.isSubmitting}
-                      {...field}
-                      placeholder="30"
-                    />
-                  </FormControl>
-                  <FormMessage />
-                </FormItem>
-              )}
-            />
-            <FormField
-              control={form.control}
-              name="monthValue"
-              render={({ field }) => (
-                <FormItem className="flex flex-col gap-1 w-full">
-                  <FormLabel>Valor Mensal</FormLabel>
-                  <FormControl>
-                    <Input
-                      type="text"
-                      disabled={form.formState.isSubmitting}
-                      {...field}
-                      placeholder="30"
-                    />
-                  </FormControl>
-                  <FormMessage />
-                </FormItem>
-              )}
-            />
-            <FormField
-              control={form.control}
-              name="implementationValue"
-              render={({ field }) => (
-                <FormItem className="flex flex-col gap-1 w-full">
-                  <FormLabel>Valor Implantação</FormLabel>
-                  <FormControl>
-                    <Input
-                      type="text"
-                      disabled={form.formState.isSubmitting}
-                      {...field}
-                      placeholder="30"
-                    />
-                  </FormControl>
-                  <FormMessage />
-                </FormItem>
-              )}
-            />
-          </div>
+      <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-4">
+        <div className="grid grid-cols-2 gap-4  items-start">
+          <Combobox data={modules} form={form} label="Módulo" name="moduleId" />
+          <Combobox
+            data={entities}
+            form={form}
+            label="Entidade"
+            name="entityId"
+          />
         </div>
-        <Button
-          disabled={form.formState.isSubmitting}
-          className="flex gap-3"
-          type="submit"
-        >
-          <ButtonTooltip text="Adcionar">
+        <div className="grid grid-cols-4 gap-4  items-end">
+          <FormField
+            control={form.control}
+            name="value"
+            render={({ field }) => (
+              <FormItem className="flex flex-col gap-1 w-full">
+                <FormLabel>Valor Total</FormLabel>
+                <FormControl>
+                  <Input
+                    type="text"
+                    disabled={form.formState.isSubmitting}
+                    {...field}
+                    placeholder="30"
+                  />
+                </FormControl>
+                <FormMessage />
+              </FormItem>
+            )}
+          />
+          <FormField
+            control={form.control}
+            name="monthValue"
+            render={({ field }) => (
+              <FormItem className="flex flex-col gap-1 w-full">
+                <FormLabel>Valor Mensal</FormLabel>
+                <FormControl>
+                  <Input
+                    type="text"
+                    disabled={form.formState.isSubmitting}
+                    {...field}
+                    placeholder="30"
+                  />
+                </FormControl>
+                <FormMessage />
+              </FormItem>
+            )}
+          />
+          <FormField
+            control={form.control}
+            name="implementationValue"
+            render={({ field }) => (
+              <FormItem className="flex flex-col gap-1 w-full">
+                <FormLabel>Valor Implantação</FormLabel>
+                <FormControl>
+                  <Input
+                    type="text"
+                    disabled={form.formState.isSubmitting}
+                    {...field}
+                    placeholder="30"
+                  />
+                </FormControl>
+                <FormMessage />
+              </FormItem>
+            )}
+          />
+          <Button
+            disabled={form.formState.isSubmitting}
+            className="flex gap-3 w-full"
+            type="submit"
+          >
+            Adcionar
             <Plus />
-          </ButtonTooltip>
-        </Button>
+          </Button>
+        </div>
       </form>
     </Form>
   );
