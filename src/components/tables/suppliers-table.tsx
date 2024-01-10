@@ -48,7 +48,7 @@ export async function SupplierTable({ data, pages, total }: TableProps) {
         <TableFooter>
           <TableRow>
             <TableCell colSpan={10}>
-              <TablePagination total={total} pages={pages} />
+              <TablePagination params="suppliers" total={total} pages={pages} />
             </TableCell>
           </TableRow>
         </TableFooter>

@@ -63,41 +63,43 @@ export async function AmendmentModulesTable({
         </Card>
       </div>
       <div className="rounded-md border">
-        <Table>
-          <TableHeader>
-            <TableRow>
-              <TableHead>Entidade</TableHead>
-              <TableHead>Módulo</TableHead>
-              <TableHead>Total</TableHead>
-              <TableHead>Mensal</TableHead>
-              <TableHead>Implantação</TableHead>
+        <div className="overflow-y-scroll w-full h-96 relative">
+          <Table className="">
+            <TableHeader className="table-header-group">
+              <TableRow>
+                <TableHead>Entidade</TableHead>
+                <TableHead>Módulo</TableHead>
+                <TableHead>Total</TableHead>
+                <TableHead>Mensal</TableHead>
+                <TableHead>Implantação</TableHead>
+                <TableHead className="flex justify-end items-center">
+                  Excluir
+                </TableHead>
+              </TableRow>
+            </TableHeader>
 
-              <TableHead className="flex justify-end items-center">
-                Excluir
-              </TableHead>
-            </TableRow>
-          </TableHeader>
-          <TableBody>
-            {data.map((item) => {
-              return (
-                <TableRow key={item.id}>
-                  <TableCell>{item.entity.name}</TableCell>
-                  <TableCell>{item.module.name}</TableCell>
-                  <TableCell>{formatCurrencyTo.Real(item.value)}</TableCell>
-                  <TableCell>
-                    {formatCurrencyTo.Real(item.monthValue)}
-                  </TableCell>
-                  <TableCell>
-                    {formatCurrencyTo.Real(item.implementationValue)}
-                  </TableCell>
-                  <TableCell className="flex justify-end items-center">
-                    <RemoveAmendmentModuleButton id={item.id} />
-                  </TableCell>
-                </TableRow>
-              );
-            })}
-          </TableBody>
-        </Table>
+            <TableBody>
+              {data.map((item) => {
+                return (
+                  <TableRow key={item.id}>
+                    <TableCell>{item.entity.name}</TableCell>
+                    <TableCell>{item.module.name}</TableCell>
+                    <TableCell>{formatCurrencyTo.Real(item.value)}</TableCell>
+                    <TableCell>
+                      {formatCurrencyTo.Real(item.monthValue)}
+                    </TableCell>
+                    <TableCell>
+                      {formatCurrencyTo.Real(item.implementationValue)}
+                    </TableCell>
+                    <TableCell className="flex justify-end items-center">
+                      <RemoveAmendmentModuleButton id={item.id} />
+                    </TableCell>
+                  </TableRow>
+                );
+              })}
+            </TableBody>
+          </Table>
+        </div>
       </div>
     </>
   );

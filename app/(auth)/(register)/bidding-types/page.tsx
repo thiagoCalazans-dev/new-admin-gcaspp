@@ -21,7 +21,7 @@ export default async function Page({
         </h2>
         <Modal
           title="Cadastro"
-          description="Adcione uma nova modalidade de licitação"
+          description="Adicione uma nova modalidade de licitação"
         >
           <BiddingTypeForm />
         </Modal>

@@ -12,7 +12,6 @@ export default async function Page({
   };
 }) {
   const contractId = params.contractId;
-
   const { data } = await fetchContractAction({ contractId });
 
   return (
@@ -56,7 +55,11 @@ export default async function Page({
               <AmendmentForm contractId={data.id} />
             </Modal>
           </div>
-          <AmendmentTable data={data.amendments} contractId={data.id} />
+          <AmendmentTable
+            params="contractId"
+            data={data.amendments}
+            contractId={data.id}
+          />
         </div>
       </div>
     </div>

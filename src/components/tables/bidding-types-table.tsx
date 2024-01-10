@@ -44,7 +44,11 @@ export async function BiddingTypeTable({ data, pages, total }: TableProps) {
         <TableFooter>
           <TableRow>
             <TableCell colSpan={2}>
-              <TablePagination total={total} pages={pages} />
+              <TablePagination
+                params="bidding-types"
+                total={total}
+                pages={pages}
+              />
             </TableCell>
           </TableRow>
         </TableFooter>

@@ -46,7 +46,7 @@ export async function ModuleTable({ data, pages, total }: TableProps) {
         <TableFooter>
           <TableRow>
             <TableCell colSpan={2}>
-              <TablePagination total={total} pages={pages} />
+              <TablePagination params="modules" total={total} pages={pages} />
             </TableCell>
           </TableRow>
         </TableFooter>

@@ -150,7 +150,7 @@ export function ClientAmendmentModulesForm({
             className="flex gap-3 w-full"
             type="submit"
           >
-            Adcionar
+            Adicionar
             <Plus />
           </Button>
         </div>

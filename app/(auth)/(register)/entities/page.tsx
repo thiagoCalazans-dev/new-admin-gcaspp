@@ -17,7 +17,7 @@ export default async function Page({
     <div className="flex-1 space-y-4 pt-6 container">
       <div className="flex items-center justify-between">
         <h2 className="text-3xl font-bold tracking-tight">Entidades</h2>
-        <Modal title="Cadastro" description="Adcione uma nova entidade">
+        <Modal title="Cadastro" description="Adicione uma nova entidade">
           <EntityForm />
         </Modal>
       </div>

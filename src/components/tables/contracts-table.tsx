@@ -58,7 +58,7 @@ export async function ContractTable({ data, pages, total }: TableProps) {
         <TableFooter>
           <TableRow>
             <TableCell colSpan={5}>
-              <TablePagination total={total} pages={pages} />
+              <TablePagination params="contracts" total={total} pages={pages} />
             </TableCell>
           </TableRow>
         </TableFooter>

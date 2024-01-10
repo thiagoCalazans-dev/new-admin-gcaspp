@@ -1,5 +1,5 @@
 "use client";
-import { usePathname, useSearchParams } from "next/navigation";
+import { useSearchParams } from "next/navigation";
 import {
   Pagination,
   PaginationContent,
@@ -14,11 +14,15 @@ import { Button } from "./button";
 interface TablePaginationProps {
   total: number;
   pages: number;
+  params: string;
 }
 
-export function TablePagination({ total, pages }: TablePaginationProps) {
+export function TablePagination({
+  total,
+  pages,
+  params,
+}: TablePaginationProps) {
   const searchParams = useSearchParams();
-  const pathname = usePathname();
   const page = searchParams.get("page") ?? "1";
   const limit = searchParams.get("limit") ?? "10";
   const hasPrevPage = Number(page) > 1;
@@ -30,7 +34,7 @@ export function TablePagination({ total, pages }: TablePaginationProps) {
         <PaginationItem>
           <Button disabled={!hasPrevPage} variant="link">
             <PaginationPrevious
-              href={`/${pathname}/?page=${Number(page) - 1}&limit=${limit}`}
+              href={`/${params}/?page=${Number(page) - 1}&limit=${limit}`}
             />
           </Button>
         </PaginationItem>
@@ -42,7 +46,7 @@ export function TablePagination({ total, pages }: TablePaginationProps) {
             className="disabled:hidden"
           >
             <PaginationLink
-              href={`/${pathname}/?page=${Number(page) - 1}&limit=${limit}`}
+              href={`/${params}/?page=${Number(page) - 1}&limit=${limit}`}
             >
               {Number(page) - 1}
             </PaginationLink>
@@ -60,7 +64,9 @@ export function TablePagination({ total, pages }: TablePaginationProps) {
             className="disabled:hidden"
           >
             <PaginationLink
-              href={`/${pathname}?page=${Number(page) + 1}&limit=${limit}`}
+              href={`${process.env.BASE_URL}/${params}?page=${
+                Number(page) + 1
+              }&limit=${limit}`}
             >
               {Number(page) + 1}
             </PaginationLink>
@@ -68,14 +74,14 @@ export function TablePagination({ total, pages }: TablePaginationProps) {
         </PaginationItem>
         <PaginationEllipsis />
         <PaginationItem>
-          <PaginationLink href={`/${pathname}?page=${pages}&limit=${limit}`}>
+          <PaginationLink href={`/${params}?page=${pages}&limit=${limit}`}>
             {pages}
           </PaginationLink>
         </PaginationItem>
         <PaginationItem>
           <Button disabled={!hasNextPage} variant="link">
             <PaginationNext
-              href={`/${pathname}?page=${Number(page) + 1}&limit=${limit}`}
+              href={`/${params}?page=${Number(page) + 1}&limit=${limit}`}
             />
           </Button>
         </PaginationItem>

@@ -12,15 +12,16 @@ import { format } from "date-fns";
 import { Modal } from "../ui/modal";
 import { AmendmentModulesTable } from "./amendment-modules-table";
 import { AmendmentModuleForm } from "../forms/amedment-module-form";
-import { Library, FileText } from "@/src/infra/icons";
+import { Library } from "@/src/infra/icons";
 import { RemoveAmendmentButton } from "../buttons/remove-amendment-button";
 
 interface TableProps {
   data: Amendment[];
   contractId: string;
+  params: string;
 }
 
-export async function AmendmentTable({ data, contractId }: TableProps) {
+export async function AmendmentTable({ data, contractId, params }: TableProps) {
   return (
     <div className="rounded-md border">
       <Table>
