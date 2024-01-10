@@ -1,3 +1,3 @@
-export default function Invoices() {
+export default async function Invoices() {
   return <>Invoices</>;
 }
