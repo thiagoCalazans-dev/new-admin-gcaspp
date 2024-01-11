@@ -9,9 +9,13 @@ export default function DashboardLayout({
 }) {
   return (
     <div className="flex-1 space-y-4 pt-6 container">
-      <h2 className="text-3xl font-bold tracking-tight">Dashboard</h2>
       <div className="w-full grid grid-cols-2 gap-4">
-        <div>{contracts}</div>
+        <div className="space-y-4">
+          <h2 className="text-xl font-bold tracking-tight">
+            Contratos a vencer
+          </h2>
+          {contracts}
+        </div>
         <div>{invoices}</div>
       </div>
       {children}

@@ -1,3 +1,4 @@
+import { differenceInCalendarDays } from "date-fns";
 import { adapterContract } from "../adapters/contract-adapter";
 import { dbAmendment } from "./amendments";
 import { db, dbType } from "./config";
@@ -44,7 +45,43 @@ async function getAll(page: number, limit: number) {
   return output;
 }
 
-async function FindOne(contractId: string) {
+async function getExpiringContracts(page: number, limit: number) {
+  const skip = limit * (page - 1);
+  const take = limit;
+
+  const [dbContracts, total] = await db.$transaction([
+    db.contract.findMany({
+      include: {
+        bidding_type: true,
+        supplier: true,
+        amendments: true,
+      },
+
+      skip,
+      take,
+    }),
+    db.contract.count(),
+  ]);
+
+  const expiringContracts = dbContracts
+    .map((dbContract) => adapterContract.dbToExpiringContract(dbContract))
+    .sort(
+      (a, b) =>
+        differenceInCalendarDays(a.dueDate, new Date()) -
+        differenceInCalendarDays(b.dueDate, new Date())
+    );
+  const pages = Math.ceil(total / take);
+
+  const output = {
+    data: expiringContracts,
+    total: total,
+    pages: pages,
+  };
+
+  return output;
+}
+
+async function findOne(contractId: string) {
   const [dbContract] = await db.$transaction([
     db.contract.findUnique({
       where: {
@@ -64,10 +101,6 @@ async function FindOne(contractId: string) {
   ]);
 
   if (!dbContract) throw new Error("nao foi encontrado");
-
-  const dbData = {
-    ...dbContract,
-  };
 
   const contract = adapterContract.dbToDomain(dbContract);
 
@@ -123,5 +156,6 @@ export const dbContract = {
   getAll,
   save,
   remove,
-  FindOne,
+  findOne,
+  getExpiringContracts,
 };
