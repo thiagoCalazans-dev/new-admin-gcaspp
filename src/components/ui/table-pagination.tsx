@@ -64,9 +64,7 @@ export function TablePagination({
             className="disabled:hidden"
           >
             <PaginationLink
-              href={`${process.env.BASE_URL}/${params}?page=${
-                Number(page) + 1
-              }&limit=${limit}`}
+              href={`/${params}?page=${Number(page) + 1}&limit=${limit}`}
             >
               {Number(page) + 1}
             </PaginationLink>

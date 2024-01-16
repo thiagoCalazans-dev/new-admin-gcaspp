@@ -21,8 +21,8 @@ const FormModuleSkeleton = {
   name: s.string().min(1),
 };
 
-export const FormModule = s.object(FormModuleSkeleton);
-export type FormModule = s.infer<typeof FormModule>;
+const FormModule = s.object(FormModuleSkeleton);
+type FormModule = s.infer<typeof FormModule>;
 
 export function ModuleForm() {
   const { onError, onSuccess } = useToast();
@@ -37,7 +37,7 @@ export function ModuleForm() {
   async function onSubmit(formValues: FormModule) {
     try {
       await createModuleAction(formValues);
-      onSuccess("Módulo adcionado com sucesso");
+      onSuccess("Módulo adicionado com sucesso");
       form.reset();
     } catch (error: Error | any) {
       onError(error.message);

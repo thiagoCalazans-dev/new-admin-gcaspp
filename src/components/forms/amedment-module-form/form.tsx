@@ -16,8 +16,9 @@ import { useToast } from "@/src/hooks/useToast";
 import { Module } from "@/src/domain/entities/module";
 import { createAmendmentModuleAction } from "@/src/actions/create-amendment-module-action";
 import { Plus } from "@/src/infra/icons";
-import { ButtonTooltip } from "../../ui/button-tooltip";
 import { Entity } from "@/src/domain/entities/entity";
+import { Modal } from "../../ui/modal";
+import { ModuleForm } from "../module-form";
 
 interface AmendmentModulesFormProps {
   entities: Entity[];
@@ -82,7 +83,21 @@ export function ClientAmendmentModulesForm({
     <Form {...form}>
       <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-4">
         <div className="grid grid-cols-2 gap-4  items-start">
-          <Combobox data={modules} form={form} label="Módulo" name="moduleId" />
+          <div className="flex gap-2 items-end">
+            <Combobox
+              data={modules}
+              form={form}
+              label="Módulo"
+              name="moduleId"
+            />
+            <Modal
+              title="Cadastrar Modulo"
+              description="Adicione um novo módulo"
+              textButton={<Plus />}
+            >
+              <ModuleForm />
+            </Modal>
+          </div>
           <Combobox
             data={entities}
             form={form}

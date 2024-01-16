@@ -40,12 +40,12 @@ export function Modal({
           {textButton}
         </Button>
       </DialogTrigger>
-      <DialogContent>
+      <DialogContent className="max-h-svh">
         <DialogHeader>
           <DialogTitle>{title}</DialogTitle>
           <DialogDescription>{description}</DialogDescription>
         </DialogHeader>
-        <div>{children}</div>
+        <div className="">{children}</div>
       </DialogContent>
     </Dialog>
   );

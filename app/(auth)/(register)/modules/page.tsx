@@ -1,6 +1,7 @@
 import { getModulesAction } from "@/src/actions/get-modules-action";
 import { ModuleForm } from "@/src/components/forms/module-form";
 import { ModuleTable } from "@/src/components/tables/modules-table";
+import { Input } from "@/src/components/ui/input";
 import { Modal } from "@/src/components/ui/modal";
 
 export default async function Page({

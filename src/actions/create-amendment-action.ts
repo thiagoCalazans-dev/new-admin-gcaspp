@@ -20,5 +20,6 @@ type CreateAmendmentAction = s.infer<typeof CreateAmendmentAction>;
 export async function createAmendmentAction(data: CreateAmendmentAction) {
   const parsedData = CreateAmendmentAction.parse(data);
   await dbAmendment.save(parsedData);
-  revalidatePath(`/contract/${data.contractId}`);
+  revalidatePath("/contract/${data.contractId}");
+  revalidatePath("/dashboard}");
 }
