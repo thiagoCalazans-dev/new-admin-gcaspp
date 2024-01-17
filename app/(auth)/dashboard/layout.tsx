@@ -16,7 +16,12 @@ export default function DashboardLayout({
           </h2>
           {contracts}
         </div>
-        <div>{invoices}</div>
+        <div className="space-y-4">
+          <h2 className="text-xl font-bold tracking-tight">
+            Dia do Faturamento
+          </h2>
+          <div>{invoices}</div>
+        </div>
       </div>
       {children}
     </div>

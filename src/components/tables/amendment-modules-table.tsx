@@ -24,6 +24,16 @@ export async function AmendmentModulesTable({
     amendmentId: amendment.id,
   });
 
+  const sortedDataByEntity = data.sort((a, b) => {
+    if (a.entity.name < b.entity.name) {
+      return -1;
+    }
+    if (a.entity.name > b.entity.name) {
+      return 1;
+    }
+    return 0;
+  });
+
   const totalModules = data.reduce(
     (accumulator, currentValue) => accumulator + currentValue.value,
     0
@@ -79,7 +89,7 @@ export async function AmendmentModulesTable({
             </TableHeader>
 
             <TableBody>
-              {data.map((item) => {
+              {sortedDataByEntity.map((item) => {
                 return (
                   <TableRow key={item.id}>
                     <TableCell>{item.entity.name}</TableCell>

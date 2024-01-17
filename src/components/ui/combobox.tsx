@@ -39,17 +39,17 @@ export function Combobox({ form, name, data, label }: ComboboxProps) {
       control={form.control}
       name={name}
       render={({ field }) => (
-        <FormItem className="flex flex-col gap-1 w-full">
+        <FormItem className="space-y-1 w-full">
           <FormLabel>{label}</FormLabel>
           <Popover open={open} onOpenChange={setOpen}>
             <PopoverTrigger asChild>
-              <FormControl>
+              <FormControl className="w-full">
                 <Button
                   variant="outline"
                   role="combobox"
                   aria-expanded={open}
                   className={cn(
-                    "w-full justify-between",
+                    "w-full justify-between text-left overflow-x-hidden",
                     !field.value && "text-muted-foreground"
                   )}
                 >
@@ -60,9 +60,15 @@ export function Combobox({ form, name, data, label }: ComboboxProps) {
                 </Button>
               </FormControl>
             </PopoverTrigger>
-            <PopoverContent className="w-[23rem]   p-0" align="start">
+            <PopoverContent
+              className="w-[23rem] overflow-x-hidden p-0"
+              align="start"
+            >
               <Command>
-                <CommandInput placeholder="Search..." />
+                <CommandInput
+                  className=" overflow-x-hidden"
+                  placeholder="Search..."
+                />
                 <CommandEmpty>No resource found.</CommandEmpty>
                 <CommandGroup>
                   {data.map((item) => (

@@ -83,13 +83,15 @@ export function ClientAmendmentModulesForm({
     <Form {...form}>
       <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-4">
         <div className="grid grid-cols-2 gap-4  items-start">
-          <div className="flex gap-2 items-end">
-            <Combobox
-              data={modules}
-              form={form}
-              label="Módulo"
-              name="moduleId"
-            />
+          <div className="grid grid-cols-4 gap-2 items-end">
+            <div className="col-span-3">
+              <Combobox
+                data={modules}
+                form={form}
+                label="Módulo"
+                name="moduleId"
+              />
+            </div>
             <Modal
               title="Cadastrar Modulo"
               description="Adicione um novo módulo"
