@@ -35,7 +35,7 @@ export function BiddingTypeForm() {
   async function onSubmit(formValues: FormBiddingType) {
     try {
       await createBiddingTypeAction(formValues);
-      onSuccess("Modalidade de licitação adcionada com sucesso");
+      onSuccess("Modalidade de licitação adicionada com sucesso");
       form.reset();
     } catch (error: Error | any) {
       onError(error.message);

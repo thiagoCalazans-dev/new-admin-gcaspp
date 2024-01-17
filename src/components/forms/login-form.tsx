@@ -35,7 +35,6 @@ export function LoginForm() {
   async function onSubmit(formValues: FormLogin) {
     try {
       await console.log(formValues);
-      onSuccess("Bem Vindo");
       router.push("/dashboard");
     } catch (error: Error | any) {
       onError(error.message);

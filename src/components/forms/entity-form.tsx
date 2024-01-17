@@ -36,7 +36,7 @@ export function EntityForm() {
   async function onSubmit(formValues: FormEntity) {
     try {
       await createEntityAction(formValues);
-      onSuccess("Entidade adcionado com sucesso");
+      onSuccess("Entidade adicionado com sucesso");
       form.reset();
     } catch (error: Error | any) {
       onError(error.message);

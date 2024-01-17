@@ -54,7 +54,7 @@ export function AmendmentForm({ contractId }: AmendmentFormProps) {
         value: Number(formValues.value),
         contractId,
       });
-      onSuccess("Contrato adcionado com sucesso");
+      onSuccess("Aditivo adicionado com sucesso");
       form.reset();
     } catch (error: Error | any) {
       onError(error.message);

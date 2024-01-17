@@ -62,7 +62,7 @@ export function SupplierForm() {
         ...formValues,
         number: Number(formValues.number),
       });
-      onSuccess("Fornecedor adcionado com sucesso");
+      onSuccess("Fornecedor adicionado com sucesso");
       form.reset();
     } catch (error: Error | any) {
       onError(error.message);
