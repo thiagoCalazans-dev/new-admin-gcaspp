@@ -1,7 +1,7 @@
 import { getExpiringContractsAction } from "@/src/actions/get-expiring-contracts";
 import { Card, CardContent, CardHeader } from "@/src/components/ui/card";
 import { Separator } from "@/src/components/ui/separator";
-import { differenceInCalendarDays, format } from "date-fns";
+import { differenceInCalendarDays } from "date-fns";
 
 export default async function Contracts() {
   const { data } = await getExpiringContractsAction({
@@ -36,7 +36,8 @@ export default async function Contracts() {
               >
                 <strong className="font-semibold uppercase">
                   {differenceInCalendarDays(contract.dueDate, new Date())}
-                  {differenceInCalendarDays(contract.dueDate, new Date()) > 1
+                  {differenceInCalendarDays(contract.dueDate, new Date()) > 1 ||
+                  differenceInCalendarDays(contract.dueDate, new Date()) < -1
                     ? " dias"
                     : " dia"}
                 </strong>
