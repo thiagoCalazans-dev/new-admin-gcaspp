@@ -3,7 +3,7 @@ import { Separator } from "@/src/components/ui/separator";
 import { DashboardPage } from "../schema";
 
 export default async function Invoices() {
-  const dashboard = await fetch("http://localhost:3000/api/dashboard", {
+  const dashboard = await fetch(`${process.env.BASE_URL_API}/dashboard`, {
     cache: "default",
     next: { revalidate: 43200, tags: ["dashboard"] }, // revalidate at most 12 hours
     headers: {

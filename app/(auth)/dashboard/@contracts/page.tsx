@@ -1,17 +1,17 @@
-import { getExpiringContractsAction } from "@/src/actions/get-expiring-contracts";
 import { Card, CardContent, CardHeader } from "@/src/components/ui/card";
 import { Separator } from "@/src/components/ui/separator";
 import { differenceInCalendarDays } from "date-fns";
 import { DashboardPage } from "../schema";
 
 export default async function Contracts() {
-  const dashboard = await fetch("http://localhost:3000/api/dashboard", {
+  const dashboard = await fetch(`${process.env.BASE_URL_API}/dashboard`, {
     cache: "default",
     next: { revalidate: 43200, tags: ["dashboard"] }, // revalidate at most 12 hours
     headers: {
       "Content-Type": "application/json",
     },
   });
+
   const { data }: DashboardPage = await dashboard.json();
 
   function StatusToDueDate(data: Date): "SAFE" | "ALERT" | "DANGER" {
