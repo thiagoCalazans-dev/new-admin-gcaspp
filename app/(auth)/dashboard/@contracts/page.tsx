@@ -2,12 +2,17 @@ import { getExpiringContractsAction } from "@/src/actions/get-expiring-contracts
 import { Card, CardContent, CardHeader } from "@/src/components/ui/card";
 import { Separator } from "@/src/components/ui/separator";
 import { differenceInCalendarDays } from "date-fns";
+import { DashboardPage } from "../schema";
 
 export default async function Contracts() {
-  const { data } = await getExpiringContractsAction({
-    page: "1",
-    limit: "100",
+  const dashboard = await fetch("http://localhost:3000/api/dashboard", {
+    cache: "default",
+    next: { revalidate: 43200, tags: ["dashboard"] }, // revalidate at most 12 hours
+    headers: {
+      "Content-Type": "application/json",
+    },
   });
+  const { data }: DashboardPage = await dashboard.json();
 
   function StatusToDueDate(data: Date): "SAFE" | "ALERT" | "DANGER" {
     const result = differenceInCalendarDays(data, new Date());
@@ -18,7 +23,7 @@ export default async function Contracts() {
 
   return (
     <Card className="p-0 w-full aspect-square overflow-y-hidden">
-      {data.map((contract) => {
+      {data.expiringContracts.map((contract) => {
         return (
           <div key={contract.id} className="px-4">
             <div className="flex items-center justify-between pt-4 pb-1">

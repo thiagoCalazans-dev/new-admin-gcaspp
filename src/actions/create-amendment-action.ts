@@ -1,6 +1,6 @@
 "use server";
 
-import { revalidatePath } from "next/cache";
+import { revalidatePath, revalidateTag } from "next/cache";
 import { s } from "../infra/schema";
 import { dbAmendment } from "../domain/database/amendments";
 import { AmendmentPrimitive } from "../domain/entities/amendment";
@@ -21,5 +21,5 @@ export async function createAmendmentAction(data: CreateAmendmentAction) {
   const parsedData = CreateAmendmentAction.parse(data);
   await dbAmendment.save(parsedData);
   revalidatePath("/contract/${data.contractId}");
-  revalidatePath("/dashboard");
+  revalidateTag("dashboard");
 }

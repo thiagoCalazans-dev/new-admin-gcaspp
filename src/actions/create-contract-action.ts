@@ -1,6 +1,6 @@
 "use server";
 
-import { revalidatePath } from "next/cache";
+import { revalidatePath, revalidateTag } from "next/cache";
 import { s } from "../infra/schema";
 import { dbContract } from "../domain/database/contracts";
 import { Contract } from "../domain/entities/contract";
@@ -37,5 +37,5 @@ export async function createContractAction(data: CreateContractAction) {
   const parsedData = CreateContractAction.parse(data);
   await dbContract.save(parsedData);
   revalidatePath("/contracts");
-  revalidatePath("/dashboard");
+  revalidateTag("dashboard");
 }

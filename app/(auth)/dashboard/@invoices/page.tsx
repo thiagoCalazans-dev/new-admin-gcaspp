@@ -1,14 +1,18 @@
-import { getContractsAction } from "@/src/actions/get-contracts-action";
 import { Card, CardContent, CardHeader } from "@/src/components/ui/card";
 import { Separator } from "@/src/components/ui/separator";
+import { DashboardPage } from "../schema";
 
 export default async function Invoices() {
-  const { data } = await getContractsAction({
-    page: "1",
-    limit: "10000",
+  const dashboard = await fetch("http://localhost:3000/api/dashboard", {
+    cache: "default",
+    next: { revalidate: 43200, tags: ["dashboard"] }, // revalidate at most 12 hours
+    headers: {
+      "Content-Type": "application/json",
+    },
   });
+  const { data }: DashboardPage = await dashboard.json();
 
-  const orderedDataByBillingDay = data.sort((a, b) => {
+  const orderedDataByBillingDay = data.contracts.sort((a, b) => {
     return a.billingDay - b.billingDay;
   });
 
