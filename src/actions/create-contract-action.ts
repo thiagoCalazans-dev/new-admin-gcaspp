@@ -37,5 +37,5 @@ export async function createContractAction(data: CreateContractAction) {
   const parsedData = CreateContractAction.parse(data);
   await dbContract.save(parsedData);
   revalidatePath("/contracts");
-  revalidatePath("/dashboard}");
+  revalidatePath("/dashboard");
 }

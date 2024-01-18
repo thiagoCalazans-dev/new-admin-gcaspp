@@ -21,5 +21,5 @@ export async function createAmendmentAction(data: CreateAmendmentAction) {
   const parsedData = CreateAmendmentAction.parse(data);
   await dbAmendment.save(parsedData);
   revalidatePath("/contract/${data.contractId}");
-  revalidatePath("/dashboard}");
+  revalidatePath("/dashboard");
 }

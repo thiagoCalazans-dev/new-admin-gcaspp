@@ -15,5 +15,4 @@ const contractSkeleton = {
 };
 
 export const Contract = s.object(contractSkeleton).required();
-
 export type Contract = s.infer<typeof Contract>;

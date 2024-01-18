@@ -3,7 +3,7 @@ import { Card, CardContent, CardHeader } from "@/src/components/ui/card";
 import { Separator } from "@/src/components/ui/separator";
 
 export default async function Invoices() {
-  const { data, total, pages } = await getContractsAction({
+  const { data } = await getContractsAction({
     page: "1",
     limit: "10000",
   });
@@ -14,7 +14,7 @@ export default async function Invoices() {
 
   function billingDayStatus(day: number): string {
     const currentDay = new Date().getDate();
-    console.log(currentDay);
+
     if (currentDay === day) return "DANGER";
     if (currentDay < day) return "ALERT";
     return "SAFE";
