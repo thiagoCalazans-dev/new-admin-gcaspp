@@ -10,17 +10,17 @@ async function getAll(page: number, limit: number) {
       skip,
       take,
     }),
-    db.module.count(),
+    db.supplier.count(),
   ]);
 
-  const modules = dbModules.map((dbModule) =>
+  const suppliers = dbModules.map((dbModule) =>
     adapterSupplier.dbToDomain(dbModule)
   );
 
   const pages = Math.ceil(total / take);
 
   const output = {
-    data: modules,
+    data: suppliers,
     total: total,
     pages: pages,
   };

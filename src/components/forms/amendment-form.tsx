@@ -21,8 +21,18 @@ const FormAmendmentSkeleton = {
     .string()
     .min(1, "campo obrigatório")
     .transform((string) => string.replace(",", ".")),
-  subscriptionDate: s.date(),
-  dueDate: s.date(),
+  subscriptionDate: s
+    .string()
+    .regex(
+      /^(0?[1-9]|[12][0-9]|3[01])[\/\-](0?[1-9]|1[012])[\/\-]\d{4}$/,
+      "Deve estar no formato de data 'DD/MM/AAAA'"
+    ),
+  dueDate: s
+    .string()
+    .regex(
+      /^(0?[1-9]|[12][0-9]|3[01])[\/\-](0?[1-9]|1[012])[\/\-]\d{4}$/,
+      "Deve estar no formato de data 'DD/MM/AAAA'"
+    ),
 };
 
 export const FormAmendment = s.object(FormAmendmentSkeleton);
@@ -39,9 +49,9 @@ export function AmendmentForm({ contractId }: AmendmentFormProps) {
   const form = useForm<FormAmendment>({
     resolver: zodResolver(FormAmendment),
     defaultValues: {
-      dueDate: new Date(),
+      dueDate: "",
       number: "",
-      subscriptionDate: new Date(),
+      subscriptionDate: "",
       value: "",
     },
   });
@@ -52,6 +62,10 @@ export function AmendmentForm({ contractId }: AmendmentFormProps) {
         ...formValues,
         number: Number(formValues.number),
         value: Number(formValues.value),
+        dueDate: new Date(formValues.dueDate.split("/").reverse().join("/")),
+        subscriptionDate: new Date(
+          formValues.subscriptionDate.split("/").reverse().join("/")
+        ),
         contractId,
       });
       onSuccess("Aditivo adicionado com sucesso");
@@ -105,12 +119,66 @@ export function AmendmentForm({ contractId }: AmendmentFormProps) {
             />
           </div>
           <div className="grid md:grid-cols-2  gap-3">
-            <DatePicker
-              form={form}
-              label="Data de Assinatura"
+            <FormField
+              control={form.control}
               name="subscriptionDate"
+              render={({ field }) => (
+                <FormItem>
+                  <FormLabel>Data de Assinatura</FormLabel>
+                  <FormControl>
+                    <Input
+                      type="text"
+                      disabled={form.formState.isSubmitting}
+                      {...field}
+                      placeholder="01/01/2024"
+                      onChange={(e) => {
+                        const unmaskedValue = e.target.value.replace(
+                          /[^0-9/]/g,
+                          ""
+                        );
+                        if (unmaskedValue.length <= 10) {
+                          const formattedValue = unmaskedValue
+                            .replace(/(\d{2})(\d{2})(\d{4})/, "$1/$2/$3")
+                            .substring(0, 10);
+                          field.onChange(formattedValue);
+                        }
+                      }}
+                    />
+                  </FormControl>
+                  <FormMessage />
+                </FormItem>
+              )}
             />
-            <DatePicker form={form} label="Data de Vencimento" name="dueDate" />
+            <FormField
+              control={form.control}
+              name="dueDate"
+              render={({ field }) => (
+                <FormItem>
+                  <FormLabel>Data de Vencimento</FormLabel>
+                  <FormControl>
+                    <Input
+                      type="text"
+                      disabled={form.formState.isSubmitting}
+                      {...field}
+                      placeholder="01/01/2024"
+                      onChange={(e) => {
+                        const unmaskedValue = e.target.value.replace(
+                          /[^0-9/]/g,
+                          ""
+                        );
+                        if (unmaskedValue.length <= 10) {
+                          const formattedValue = unmaskedValue
+                            .replace(/(\d{2})(\d{2})(\d{4})/, "$1/$2/$3")
+                            .substring(0, 10);
+                          field.onChange(formattedValue);
+                        }
+                      }}
+                    />
+                  </FormControl>
+                  <FormMessage />
+                </FormItem>
+              )}
+            />
           </div>
         </div>
         <Button

@@ -94,7 +94,7 @@ export function ClientContractForm({
           formValues.subscriptionDate.split("/").reverse().join("/")
         ),
       });
-      onSuccess("Contrato adcionado com sucesso");
+      onSuccess("Contrato adicionado com sucesso");
       form.reset();
     } catch (error: Error | any) {
       onError(error.message);

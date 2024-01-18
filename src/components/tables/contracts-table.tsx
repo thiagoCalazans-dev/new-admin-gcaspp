@@ -12,6 +12,7 @@ import { Contract } from "@/src/domain/entities/contract";
 import { Button } from "../ui/button";
 import Link from "next/link";
 import { View } from "@/src/infra/icons";
+import { formatCurrencyTo } from "@/src/helpers/format-currency";
 
 interface TableProps {
   data: Contract[];
@@ -42,7 +43,9 @@ export async function ContractTable({ data, pages, total }: TableProps) {
                 <TableCell>{item.processNumber}</TableCell>
                 <TableCell>{item.supplier.name}</TableCell>
                 <TableCell>
-                  {item.amendments[item.amendments.length - 1].value}
+                  {formatCurrencyTo.Real(
+                    item.amendments[item.amendments.length - 1].value
+                  )}
                 </TableCell>
                 <TableCell className="flex justify-end items-center">
                   <Button size="icon" variant="default" asChild>
